@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYTimes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<style>
+
+</style>
+
+</head>
+    
+<body>
+
+
+    <script>
+        var request =new XMLHttpRequest();
+        request.open('GET', 'https://api.nytimes.com/svc/topstories/v2/arts.json?api-key=HKse9bNKLcjr0P0Rka8EvuEKzPogpKr2', true);
+
+        request.send();
+
+        request.onload=function(){
+        var  data=JSON.parse(this.response);
+        
+         for(var i=0;i<data.results.length;i++){
+             // console.log(data.results[i]);
+            document.body.insertAdjacentHTML("beforeEnd",`
+<div class="container">
+<div class="card md-3" style="width: 30rem; margin-left:0em;">
+    <div class="row no-gutters">
+        <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="card-body">
+                <h5 class="card-title">${data.results[i].section}</h5>
+                <p class="card-text">  ${data.results[i].title}<br> </p>
+                <p class="card-text">  ${data.results[i].created_date}<br> </p>
+                <p class="card-text"><small class="text-muted">${data.results[i].abstract}</small></p>
+                <a href="${data.results[i].url}" class="btn btn-primary">Continue Reading</a>
+            </div>
+        </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <img src=${data.results[i].multimedia[4].url} class="card-img-top" alt="..." >
+            </div>
+    </div>
+  </div>
+  </div>`)ss
+         }
+        }
+    </script>
+     
+</body>
+</html>
